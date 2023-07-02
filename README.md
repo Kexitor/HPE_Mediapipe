@@ -16,6 +16,8 @@ http://fenix.ur.edu.pl/mkepski/ds/uf.html
 
 ## Used lib versions:
 
+Python==3.7.8
+
 keras==2.10.0
 
 Keras-Preprocessing==1.1.2
