@@ -17,8 +17,6 @@ http://fenix.ur.edu.pl/mkepski/ds/uf.html
 
 Python==3.7.8
 
-keras==2.10.0
-
 matplotlib==3.5.3
 
 mediapipe-0.9.0.1
