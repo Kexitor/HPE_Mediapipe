@@ -2,7 +2,11 @@
 
 This programm classifies poses (walk, fall, fallen, sitting) using Mediapipe for human pose estimation. This programm prototype can only classify 1 person in frame due to Mediapipe limitations. With 37 training videos and 11 test videos it showed about 88% of accuracy on classyfing fall, fallen and walking poses. and about 32 FPS on RTX 3060 12GB and i5 12400F.
 
-Example of work: https://youtu.be/yeEJ6y-gU10
+Example of work: 
+
+
+https://github.com/Kexitor/HPE_Mediapipe/assets/55799671/876018a0-cce9-4e44-9aba-5ce3fed332a5
+
 
 ## Used videos for training and testing:
 
