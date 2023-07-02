@@ -3,7 +3,7 @@ import mediapipe as mp
 import time
 import csv
 from data_lists import train_data, test_data
-
+import sklearn
 
 global total_frames_count
 total_frames_count = 0

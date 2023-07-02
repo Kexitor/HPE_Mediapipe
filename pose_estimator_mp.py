@@ -4,7 +4,7 @@ import time
 import pandas as pd
 import re
 import pickle
-
+import sklearn
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
