@@ -63,7 +63,7 @@ python data_generator.py
 
 Example of usage:
 ```
-pose_estimator_mp.py
+python pose_estimator_mp.py
 ```
 
 
