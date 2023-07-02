@@ -19,17 +19,13 @@ Python==3.7.8
 
 keras==2.10.0
 
-Keras-Preprocessing==1.1.2
-
 matplotlib==3.5.3
 
-matplotlib-inline==0.1.6
-
-numba==0.56.4
+mediapipe-0.9.0.1
 
 numpy==1.21.6
 
-opencv-python==4.6.0.66
+opencv-python==4.7.0.72
 
 pandas==1.3.5
 
@@ -37,17 +33,6 @@ scikit-learn==1.0.2
 
 scipy==1.7.3
 
-tensorflow==2.10.0
-
-tensorflow-estimator==2.10.0
-
-tensorflow-gpu==2.10.0
-
-tensorpack==0.11
-
-torch==1.13.1+cu117
-
-torchaudio==0.13.1+cu116
 
 ## How to use:
 
