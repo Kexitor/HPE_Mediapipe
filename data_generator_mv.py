@@ -1,6 +1,5 @@
 import cv2
 import mediapipe as mp
-import numpy as np
 import time
 import csv
 from data_lists import train_data, test_data
@@ -20,9 +19,6 @@ def keypoints_parser(kps, dt_line):
 
 def get_keypoints(landmarks, w, h):
     kps = []
-    kps2 = []
-    # print(landmarks[mp_pose.PoseLandmark.NOSE])
-    # print("ok")
     for i in range(len(landmarks.landmark)):
         kps.append((landmarks.landmark[i].x * w, landmarks.landmark[i].y * h))
     return kps
@@ -35,7 +31,7 @@ def pose_estimation_video(data_path, markup, frame_sum):
     # out = cv2.VideoWriter("fname.mp4", fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
     global total_frames_count
     vid_counter = 18
-    csvname = "framecount11_2.csv" # '7vid_data_test.csv' # str(vid_counter) + 'vid_data_test.csv' #  '10vid_data_train.csv'
+    csvname = "30videos_data.csv" # '7vid_data_test.csv' # str(vid_counter) + 'vid_data_test.csv' #  '10vid_data_train.csv'
     with open(csvname, 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=';')
         spamwriter.writerow(['time', "vname", 'pose', 'bp0', 'bp1', 'bp2', 'bp3', 'bp4', 'bp5', 'bp6', 'bp7', 'bp8',

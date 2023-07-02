@@ -1,14 +1,8 @@
 import cv2
 import mediapipe as mp
-import numpy as np
 import time
 import pandas as pd
 import re
-import sklearn as sk
-from sklearn.linear_model import LogisticRegression
-from sklearn import svm
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
 import pickle
 
 
@@ -16,23 +10,13 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
-# 37 tr + 11 te = 71%
-# 30 tr + 11 te = 52%
-
 
 def csv_converter(path, fname):
     df = pd.read_csv(path + fname, sep=";")
     df_ = pd.DataFrame(data=df)
-    # string = df_.bp1[10]
-    # numbers = re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", string)
-
     all_coordinates = []
     all_poses = []
-    headers_names = df_.columns.values
-    # print(len(df_))
     for col_num in range(len(df_)):
-        # print(df_[headers_names[col_num]].values)
-        # print(df_.loc[col_num].values)
         all_poses.append([df_.loc[col_num].values[2]])
         all_coordinates.append([])
         for i in range(3, len(df_.loc[col_num].values)):
@@ -44,7 +28,7 @@ def csv_converter(path, fname):
 
 
 def pose_to_num(poses_):
-    poses_list = ["walk", "fall", "fallen", "sitting"]
+    # poses_list = ["walk", "fall", "fallen", "sitting"]
     all_poses_num = []
     for pose in poses_:
         if pose[0] == "walk":
@@ -71,6 +55,7 @@ def get_pose_from_num(pose_number):
     else:
         return "code_error"
 
+
 def get_coords_line(kps):
     coords_line = []
     for kp in kps:
@@ -79,18 +64,18 @@ def get_coords_line(kps):
     return coords_line
 
 
-def most_frequent(List):
-    counter = 0
-    num = List[0]
-
-    for i in List:
-        curr_frequency = List.count(i)
-        if (curr_frequency >= counter):
-            counter = curr_frequency
-            num = i
-    if counter == 1:
-        return List[-1]
-    return num
+# def most_frequent(List):
+#     counter = 0
+#     num = List[0]
+#
+#     for i in List:
+#         curr_frequency = List.count(i)
+#         if (curr_frequency >= counter):
+#             counter = curr_frequency
+#             num = i
+#     if counter == 1:
+#         return List[-1]
+#     return num
 
 
 def get_keypoints(landmarks, w, h):
