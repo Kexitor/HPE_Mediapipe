@@ -4,24 +4,10 @@ import time
 import csv
 from data_lists import train_data, test_data
 import sklearn
+from utilities import keypoints_parser, get_keypoints
 
 global total_frames_count
 total_frames_count = 0
-
-
-
-def keypoints_parser(kps, dt_line):
-    human = kps
-    for points in human:
-        dt_line.append((round(points[0], 2), round(points[1], 2)))
-    return dt_line
-
-
-def get_keypoints(landmarks, w, h):
-    kps = []
-    for i in range(len(landmarks.landmark)):
-        kps.append((landmarks.landmark[i].x * w, landmarks.landmark[i].y * h))
-    return kps
 
 
 def pose_estimation_video(data_path, markup, frame_sum):

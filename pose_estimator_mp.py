@@ -5,88 +5,11 @@ import pandas as pd
 import re
 import pickle
 import sklearn
+from utilities import csv_converter, pose_to_num, get_pose_from_num, get_coords_line, get_keypoints
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
-
-
-def csv_converter(path, fname):
-    df = pd.read_csv(path + fname, sep=";")
-    df_ = pd.DataFrame(data=df)
-    all_coordinates = []
-    all_poses = []
-    for col_num in range(len(df_)):
-        all_poses.append([df_.loc[col_num].values[2]])
-        all_coordinates.append([])
-        for i in range(3, len(df_.loc[col_num].values)):
-            nums = re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", df_.loc[col_num].values[i])
-            for num in nums:
-                all_coordinates[col_num].append(float(num))
-
-    return all_poses, all_coordinates
-
-
-def pose_to_num(poses_):
-    # poses_list = ["walk", "fall", "fallen", "sitting"]
-    all_poses_num = []
-    for pose in poses_:
-        if pose[0] == "walk":
-            all_poses_num.append(["0"])
-        if pose[0] == "fall":
-            all_poses_num.append(["1"])
-        if pose[0] == "fallen":
-            all_poses_num.append(["2"])
-        if pose[0] == "sitting":
-            all_poses_num.append(["3"])
-
-    return all_poses_num
-
-
-def get_pose_from_num(pose_number):
-    if pose_number[0] == "0":
-        return "walk"
-    if pose_number[0] == "1":
-        return "fall"
-    if pose_number[0] == "2":
-        return "fallen"
-    if pose_number[0] == "3":
-        return "sitting"
-    else:
-        return "code_error"
-
-
-def get_coords_line(kps):
-    coords_line = []
-    for kp in kps:
-        coords_line.append(kp[0])
-        coords_line.append(kp[1])
-    return coords_line
-
-
-# def most_frequent(List):
-#     counter = 0
-#     num = List[0]
-#
-#     for i in List:
-#         curr_frequency = List.count(i)
-#         if (curr_frequency >= counter):
-#             counter = curr_frequency
-#             num = i
-#     if counter == 1:
-#         return List[-1]
-#     return num
-
-
-def get_keypoints(landmarks, w, h):
-    kps = []
-    kps2 = []
-    # print(landmarks[mp_pose.PoseLandmark.NOSE])
-    # print("ok")
-    for i in range(len(landmarks.landmark)):
-        kps.append((landmarks.landmark[i].x * w, landmarks.landmark[i].y * h))
-    return kps
-
 
 path = ""  # "videos/csv_files/"
 filename = "37vtrain_mp.csv"# "37vid_data_train.csv" "37vid_data_train.csv"
