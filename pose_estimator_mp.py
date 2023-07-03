@@ -7,14 +7,19 @@ import pickle
 import sklearn
 from utilities import csv_converter, pose_to_num, get_pose_from_num, get_coords_line, get_keypoints
 
+# Setting up mediapipe
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
+# Getting train dataset
 path = ""  # "videos/csv_files/"
 filename = "37vtrain_mp.csv"# "37vid_data_train.csv" "37vid_data_train.csv"
 train_poses, train_coords = csv_converter(path, filename)
 train_poses_num = pose_to_num(train_poses)
+
+# Training model
+
 # NN = MLPClassifier(solver='lbfgs', activation='logistic', alpha=1e-5, hidden_layer_sizes=(150, 10), random_state=1,
 #                    max_iter=10000).fit(train_coords, train_poses_num)
 #
@@ -43,6 +48,7 @@ vid_fps = cap.get(cv2.CAP_PROP_FPS)
 pose_label = "none"
 keypoints = []
 
+# Main cycle for each frame
 with mp_pose.Pose(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as pose:
@@ -61,12 +67,11 @@ with mp_pose.Pose(
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         results = pose.process(image)
         coords_line = []
+
+        # Classifying pose for identified human
         try:
-            # print("###################")
             keypoints = get_keypoints(results.pose_landmarks, width, height)
             coords_line = get_coords_line(keypoints)
-            # print(coords_line)
-            # print(results.pose_landmarks)
             if 67 >= len(coords_line) >= 1:
                 pose_code = NN.predict([coords_line])
                 pose_label = get_pose_from_num(pose_code)
@@ -84,7 +89,7 @@ with mp_pose.Pose(
             results.pose_landmarks,
             mp_pose.POSE_CONNECTIONS,
             landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
-        # Flip the image horizontally for a selfie-view display.
+
         cv2.putText(image,
                     "FPS: %f" % (1.0 / (time.time() - fps_time)),
                     (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,

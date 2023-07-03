@@ -9,21 +9,27 @@ from utilities import keypoints_parser, get_keypoints
 global total_frames_count
 total_frames_count = 0
 
-
+# Main func for dataset generating
 def pose_estimation_video(data_path, markup, frame_sum):
     # cap = cv2.VideoCapture(filename)
     # VideoWriter for saving the video
     # fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     # out = cv2.VideoWriter("fname.mp4", fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
     global total_frames_count
+
+    # Vid_counter can be changed differing on type of data (test up to 18 or train up to 30)
+    # you are using from data_lists
     vid_counter = 18
     csvname = "30videos_data.csv" # '7vid_data_test.csv' # str(vid_counter) + 'vid_data_test.csv' #  '10vid_data_train.csv'
     with open(csvname, 'w', newline='') as csvfile:
+        # For each point of interest (POI) I take relative X and Y coordinates and convert them to absolute
         spamwriter = csv.writer(csvfile, delimiter=';')
         spamwriter.writerow(['time', "vname", 'pose', 'bp0', 'bp1', 'bp2', 'bp3', 'bp4', 'bp5', 'bp6', 'bp7', 'bp8',
                              'bp9', 'bp10', 'bp11', 'bp12', 'bp13', 'bp14', 'bp15', 'bp16', 'bp17', 'bp18', 'bp19',
                              'bp20', 'bp21', 'bp22', 'bp23', 'bp24', 'bp25', 'bp26', 'bp27', 'bp28', 'bp29', 'bp30',
                              'bp31', 'bp32'])
+
+    # Cycle for each chosen video
     for video_n in range(vid_counter):
         vid_path = data_path + markup[video_n][3]
         print(vid_path)
@@ -44,6 +50,7 @@ def pose_estimation_video(data_path, markup, frame_sum):
         width = cap.get(3)
         height = cap.get(4)
 
+        # Cycle for each frame of video
         with mp_pose.Pose(
                 min_detection_confidence=0.5,
                 min_tracking_confidence=0.5) as pose:
@@ -83,6 +90,8 @@ def pose_estimation_video(data_path, markup, frame_sum):
                 image.flags.writeable = False
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 results = pose.process(image)
+
+                # Getting human coordinates
                 try:
                     print("###################")
                     keypoints = get_keypoints(results.pose_landmarks, width, height)
@@ -97,7 +106,7 @@ def pose_estimation_video(data_path, markup, frame_sum):
                     results.pose_landmarks,
                     mp_pose.POSE_CONNECTIONS,
                     landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
-                # Flip the image horizontally for a selfie-view display.
+
                 cv2.putText(image,
                             "FPS: %f" % (1.0 / (time.time() - fps_time)),
                             (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
@@ -106,6 +115,8 @@ def pose_estimation_video(data_path, markup, frame_sum):
                 # mp_drawing.plot_landmarks(results.pose_world_landmarks, mp_pose.POSE_CONNECTIONS)
                 cv2.imshow('MediaPipe Pose', image)
                 fps_time = time.time()
+
+                # Writing human coordinates, 67 is count of 33 POI which MP can get multiplied by 2 coordinates
                 if 67 > len(data_line) > 3:
                     # data_line[2] = "none"
                     with open(csvname, 'a', newline='') as csvfile:
