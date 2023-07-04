@@ -48,8 +48,10 @@ Example of usage:
 python pose_estimator_mp.py
 ```
 
-You can check my other prototype: https://github.com/Kexitor/HPE_YOLOv7
+You can check my other prototypes: 
 
+https://github.com/Kexitor/HPE_YOLOv7
 
+https://github.com/Kexitor/HPE_Torchvision
 
 
