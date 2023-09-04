@@ -6,6 +6,9 @@ Example of work:
 
 https://github.com/Kexitor/HPE_Mediapipe/assets/55799671/876018a0-cce9-4e44-9aba-5ce3fed332a5
 
+https://www.youtube.com/watch?v=yeEJ6y-gU10
+
+https://www.youtube.com/watch?v=uedp3CnXWmM
 
 ## Used videos for training and testing:
 
