@@ -9,6 +9,7 @@ from utilities import keypoints_parser, get_keypoints
 global total_frames_count
 total_frames_count = 0
 
+
 # Main func for dataset generating
 def pose_estimation_video(data_path, markup, frame_sum):
     # cap = cv2.VideoCapture(filename)

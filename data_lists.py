@@ -1,4 +1,7 @@
-# "sitting" "walk"
+# first value - type of action,
+# second value - start time of action,
+# third value - end time of action,
+# fourth value - video_name
 
 train_data = [
     ["walk", 2.9, 3.7, "fall01.mp4"],

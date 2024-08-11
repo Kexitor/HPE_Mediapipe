@@ -5,6 +5,8 @@ import pandas as pd
 import re
 import pickle
 import sklearn
+from sklearn.neural_network import MLPClassifier
+
 from utilities import csv_converter, pose_to_num, get_pose_from_num, get_coords_line, get_keypoints
 
 # Setting up mediapipe
@@ -33,8 +35,8 @@ with open("pm_37vtrain_mp.pkl", 'rb') as file:
 # For webcam input:
 vid_path = "videos/50wtf.mp4"  # "videos/50wtf.mp4" "videos/pw3_.mp4"
 cap = cv2.VideoCapture(vid_path)
-# fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-# out = cv2.VideoWriter("50wtf_mp.mp4", fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
+fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+out = cv2.VideoWriter("50wtf_mp.mp4", fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
 
 width = cap.get(3)
 height = cap.get(4)
