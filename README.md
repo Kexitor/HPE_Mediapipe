@@ -76,10 +76,3 @@ In order to make you experience with my code better (provided some docstrings), 
 
 If you wish to get previous code version, check `old_code_samples` directory, but don't forget to change path to files, if you are going to launch them in that folder.
 
-You can check my other prototypes: 
-
-https://github.com/Kexitor/HPE_YOLOv7
-
-https://github.com/Kexitor/HPE_Torchvision
-
-
