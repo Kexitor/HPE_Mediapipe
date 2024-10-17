@@ -4,7 +4,7 @@ import time
 import csv
 from data_lists import train_data, test_data
 import sklearn
-from utilities import keypoints_parser, get_keypoints
+from MediapipeUtilities import MediapipeUtilities
 
 
 class TrainingDataGenerator:
@@ -130,8 +130,8 @@ class TrainingDataGenerator:
                     # Getting human coordinates
                     try:
                         print("###################")
-                        key_points = get_keypoints(results.pose_landmarks, video_width, video_height)
-                        data_line = keypoints_parser(key_points, data_line)
+                        key_points = MediapipeUtilities().get_keypoints(results.pose_landmarks, video_width, video_height)
+                        data_line = MediapipeUtilities().keypoints_parser(key_points, data_line)
                     except:
                         pass
                     # Draw the pose annotation on the image.
